@@ -1,0 +1,302 @@
+
+
+
+
+
+
+#########predict IPO using machine learning##########
+#########By Edoardo Pedrocchi#########
+
+
+
+#import the data#
+
+library(readxl)
+library(ggplot2)
+
+df_training <- read_excel("dataframe_training.xlsx")
+df_test_complete <- read_excel("dataframe_test.xlsx")
+
+library(tibble)
+
+df_training <- df_training%>% 
+  column_to_rownames(var = "company")
+
+df_test_complete <- df_test_complete%>% 
+  column_to_rownames(var = "company")
+
+
+
+#####data exploration####
+
+view(df_training)
+
+#mean D/E#
+
+mean_DE_1 <- aggregate(df_training$DE[df_training$IPO == 1], by = list(IPO = df_training$IPO[df_training$IPO == 1]), FUN = mean)
+
+mean_DE_0 <- aggregate(df_training$DE[df_training$IPO == 0], by = list(IPO = df_training$IPO[df_training$IPO == 0]), FUN = mean)
+
+
+mean_DE_1
+mean_DE_0
+
+
+
+
+# mean ROE
+mean_ROE_1 <- aggregate(df_training$ROE[df_training$IPO == 1], by = list(IPO = df_training$IPO[df_training$IPO == 1]), FUN = mean)
+
+mean_ROE_0 <- aggregate(df_training$ROE[df_training$IPO == 0], by = list(IPO = df_training$IPO[df_training$IPO == 0]), FUN = mean)
+
+mean_ROE_1
+mean_ROE_0
+
+
+
+# mean current ratio
+mean_current_ratio_1 <- aggregate(df_training$currentratio[df_training$IPO == 1], by = list(IPO = df_training$IPO[df_training$IPO == 1]), FUN = mean)
+
+mean_current_ratio_0 <- aggregate(df_training$currentratio[df_training$IPO == 0], by = list(IPO = df_training$IPO[df_training$IPO == 0]), FUN = mean)
+
+mean_current_ratio_1
+mean_current_ratio_0
+
+
+# mean Times Interest Earned#
+meanTimesInterestRatio_1 <- aggregate(df_training$TimesInteresEarned[df_training$IPO == 1], by = list(IPO = df_training$IPO[df_training$IPO == 1]), FUN = mean)
+
+mean_TimesInterestRatio_0 <- aggregate(df_training$TimesInteresEarned[df_training$IPO == 0], by = list(IPO = df_training$IPO[df_training$IPO == 0]), FUN = mean)
+
+mean_TimesInterestRatio_1
+mean_TimesInterestRatio_0
+
+
+
+
+###data visualization###
+
+library(ggplot2)
+
+#D/E#
+plot_DE_data <- data.frame(
+  RowName = rownames(df_training),
+  DE = df_training$DE,
+  IPO = df_training$IPO
+)
+
+rownames(plot_DE_data) <- plot_DE_data$RowName
+plot_DE_data$RowName <- NULL
+
+ggplot(plot_DE_data, aes(x = reorder(rownames(plot_DE_data), -DE), y = DE, fill = factor(IPO))) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Etichette  45 gradi
+  geom_hline(yintercept = 1, linetype = "dashed", color = "black") +  
+  labs(x = "company", y = "DE", title = "D/E")
+
+
+#EBITDA/revenue#
+
+plot_EBITDArevenue_data <- data.frame(
+  RowName = rownames(df_training),
+  EBITDArevenue = df_training$EBITDArevenue,  
+  IPO = df_training$IPO
+)
+
+rownames(plot_EBITDArevenue_data) <- plot_EBITDArevenue_data$RowName
+plot_EBITDArevenue_data$RowName <- NULL
+
+ggplot(plot_EBITDArevenue_data, aes(x = reorder(rownames(plot_EBITDArevenue_data), -EBITDArevenue), y = EBITDArevenue, fill = factor(IPO))) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  labs(x = "company", y = "EBITDA/revenue", title = " EBITDA/revenue")
+
+
+#net profit margin#
+
+plot_NPF_data <- data.frame(
+  RowName = rownames(df_training),
+  NetProfitMargin = df_training$NetProfitMargin,  
+  IPO = df_training$IPO
+)
+
+rownames(plot_NPF_data) <- plot_NPF_data$RowName
+plot_NPF_data$RowName <- NULL
+
+
+ggplot(plot_NPF_data, aes(x = reorder(rownames(plot_NPF_data), -NetProfitMargin), y = NetProfitMargin, fill = factor(IPO))) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  
+  labs(x = "company", y = "Net Profit Margin", title = "Net Profit Margin ")
+
+
+
+#current ratio#
+
+plot_CR_data <- data.frame(
+  RowName = rownames(df_training),
+  currentratio = df_training$currentratio, 
+  IPO = df_training$IPO
+)
+
+rownames(plot_CR_data) <- plot_CR_data$RowName
+plot_CR_data$RowName <- NULL
+
+
+ggplot(plot_CR_data, aes(x = reorder(rownames(plot_CR_data), -currentratio), y = currentratio, fill = factor(IPO))) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  labs(x = "company", y = "current ratio", title = "current ratio")
+
+
+#time interest earned#
+
+plot_TIE_data <- data.frame(
+  RowName = rownames(df_training),
+  TimesInteresEarned = df_training$TimesInteresEarned,
+  IPO = df_training$IPO
+)
+
+rownames(plot_TIE_data) <- plot_TIE_data$RowName
+plot_TIE_data$RowName <- NULL
+
+
+ggplot(plot_TIE_data, aes(x = reorder(rownames(plot_TIE_data), -TimesInteresEarned), y = TimesInteresEarned, fill = factor(IPO))) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  
+  labs(x = "company", y = "TimeinteresEarned", title = "Times interest Earned")
+
+
+#ROA#
+
+plot_ROA_data <- data.frame(
+  RowName = rownames(df_training),
+  ROA = df_training$ROA,  
+  IPO = df_training$IPO
+)
+
+rownames(plot_ROA_data) <- plot_ROA_data$RowName
+plot_ROA_data$RowName <- NULL
+
+
+ggplot(plot_ROA_data, aes(x = reorder(rownames(plot_ROA_data), -ROA), y = ROA, fill = factor(IPO))) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  
+  labs(x = "company", y = "ROA", title = "ROA ")
+
+
+#ROE#
+
+
+plot_ROE_data <- data.frame(
+  RowName = rownames(df_training),
+  ROE = df_training$ROE, 
+  IPO = df_training$IPO
+)
+
+rownames(plot_ROE_data) <- plot_ROe_data$RowName
+plot_ROe_data$RowName <- NULL
+
+
+ggplot(plot_ROE_data, aes(x = reorder(rownames(plot_ROE_data), -ROE), y = ROE, fill = factor(IPO))) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  labs(x = "company", y = "ROE", title = "ROE ")
+
+
+
+################Machine learning models###################
+
+
+#LOGISITC REGRESSION#
+
+df_test <- df_test_complete[, -which(names(df_test_complete) == "IPO")]
+
+library(glm2)
+
+regression_model <- glm(IPO ~ ., data = df_training, family = binomial)
+
+summary(regression_model)
+coefficients <- coef(regression_model)
+coefficients
+
+predictions_regression <- predict(regression_model, newdata = df_test, type = "response")
+
+predictions_regression<- ifelse(predictions_regression>= 0.5,1,0)
+comparison_df <- data.frame(Actual_IPO = df_test_complete$IPO, Predicted_IPO = predictions_regression)
+
+odds_ratios <- exp(coefficients)
+odds_ratios
+
+#valutation of the model#
+
+confusion_matrix_regression <- table(Actual = comparison_df$Actual_IPO, Predicted = comparison_df$Predicted_IPO)
+
+accuracy_regression <- (confusion_matrix[1,1] + confusion_matrix[2,2]) / sum(confusion_matrix)
+
+sensitivity_regression <- confusion_matrix[2,2] / (confusion_matrix[2,1] + confusion_matrix[2,2])
+
+precision_regression <- confusion_matrix[2,2] / (confusion_matrix[1,2] + confusion_matrix[2,2])
+
+f1_score_regression <- 2 * (precision * sensitivity) / (precision + sensitivity)
+
+view(confusion_matrix_regression)
+accuracy_regressio
+sensitivity_regressio
+precision_regressio
+f1_score_regressio
+
+odds_ratios
+
+
+
+
+
+
+
+###RANDOM FOREST###
+
+
+
+library(randomForest)
+
+# model#
+df_training$IPO <- as.factor(df_training$IPO)
+random_forest_model<- randomForest(IPO ~ ., data = df_training, ntree = 500)
+random_forest_predictions <-  predict(random_forest_model, newdata = df_test)
+
+#valutate the maodel#
+
+randomForest::importance(random_forest_model)
+comparison_rf <- data.frame(Actual_IPO = df_test_complete$IPO, Predicted_IPO = random_forest_predictions)
+
+
+
+rf_confusion_matrix <- table(Actual = df_test_complete$IPO, Predicted = random_forest_predictions)
+
+rf_accuracy <- (rf_confusion_matrix[1,1] + rf_confusion_matrix[2,2]) / sum(rf_confusion_matrix)
+
+rf_sensitivity <- rf_confusion_matrix[2,2] / (rf_confusion_matrix[2,1] + rf_confusion_matrix[2,2])
+
+rf_precision <- rf_confusion_matrix[2,2] / (rf_confusion_matrix[1,2] + rf_confusion_matrix[2,2])
+
+rf_f1_score <- 2 * (rf_precision * rf_sensitivity) / (rf_precision + rf_sensitivity)
+
+rf_accuracy
+rf_sensitivity
+rf_precision
+rf_f1_score
+view(rf_confusion_matrix)
+view(comparison_rf)
+
+
+
+
+

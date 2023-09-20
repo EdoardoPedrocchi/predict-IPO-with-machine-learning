@@ -22,6 +22,8 @@ the aim of this first model is not to be the most accurate ever, but to see whet
 a model comprising more variables and aiming for a much more accurate prediction will be developed later. 
 so: STAY TUNED.
 
+technology used: r, r studio
+
 do you want to know the results of the test? [see my presentation](https://github.com/EdoardoPedrocchi/predict-IPO-with-machine-learning/blob/main/IPO_final.pdf)
 
 would you like to see the dataset used? [click here](https://github.com/EdoardoPedrocchi/predict-IPO-with-machine-learning/blob/main/dataset)

@@ -24,5 +24,8 @@ so: STAY TUNED.
 
 do you want to know the results of the test? [see my presentation](https://github.com/EdoardoPedrocchi/predict-IPO-with-machine-learning/blob/main/IPO_final.pdf)
 
-would you like to see the dataset used? click here. 
-would you also like to try out the model? please do so, but mention and contact me!
+would you like to see the dataset used? [click here](https://github.com/EdoardoPedrocchi/predict-IPO-with-machine-learning/blob/main/dataset)
+
+
+would you also like to try out the model? 
+please do so, but mention and contact me!

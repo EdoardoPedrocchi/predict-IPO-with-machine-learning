@@ -1,1 +1,15 @@
+the dataset includes 11 companies that succeeded or failed in their IPO (from 2020 to 2022).
+For each of these companies, 8 indicators were calculated from their financial statements for the year prior to the IPO.
+
+the variables are:
+D/E
+EBITDA/revenue
+Net Profit Margin
+current ratio
+Times Interest Earned
+ROA
+ROE
+IPO (only 0=failure and 1=success)
+
+other 4 companies are used as test dataset.
 

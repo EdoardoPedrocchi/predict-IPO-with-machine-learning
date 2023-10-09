@@ -74,7 +74,7 @@ there are other 4 companies used as test set.
 
 SOON
 
-## 3.critical points
+### 3.critical points
 
 before start there are two problems of this project
 
@@ -95,7 +95,7 @@ why?
 
 the objective of this model is precisely try to predict IPOs using only financial statement data. in the future, a model will be created that includes more variables
 
-## 4.train and test  the models
+### 4.train and test  the models
 
 the models trained for this first project are two: logistic regression and random forest
 
@@ -133,7 +133,7 @@ logistic regression).
 - Less interpretable compared to linear
 models( like logistic regression.)
 
-## 5.confront the results
+### 5.confront the results
 
 logistic regression’s accuracy = 50%
 
@@ -143,7 +143,7 @@ so random forest work better for this type of prediction.
 
 according to random forest : ROE, times interests earned, current ratio are the variables most significant for the prediction
 
-## 6.conclusion
+### 6.conclusion
 
 predict  success or failure of a company IPO si possbile with machine learning but more analysis are needed:
 
@@ -160,3 +160,9 @@ would you see the code? [click here](https://github.com/EdoardoPedrocchi/predict
 
 would you also like to try out the model?
 please do so, but mention and contact me!
+
+
+
+## THE SECOND MODEL
+
+SOON

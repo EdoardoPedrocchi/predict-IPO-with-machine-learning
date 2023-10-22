@@ -87,7 +87,7 @@ why?
 
 the process to find them is so long...they will be added over time
 
-1. **few variables:** 
+2. **few variables:** 
 
 the training dataset excludes many fundamental variables such as the macroeconomic situation, the stock market situation, the sector in which the company operates, etc.
 
@@ -145,7 +145,7 @@ according to random forest : ROE, times interests earned, current ratio are the 
 
 ### 6.conclusion
 
-predict  success or failure of a company IPO si possbile with machine learning but more analysis are needed:
+predict  success or failure of a company IPO with machine learning is a big help for investors to  make decisionsw,but more analysis are needed:
 
 use other models
 add more data
